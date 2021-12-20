@@ -1,0 +1,28 @@
+table{
+    margin-top: 150px;
+    position: fixed;
+
+}
+button{
+    margin-top: 100px;
+    margin-left: 10px;
+}
+#manufacturers{
+    margin-top: 100px;
+    margin-left: 10px;
+}
+table thead{
+    background-color: lightgray;
+}
+table td,th{
+    text-align: center;
+}
+table tr:hover{
+    background-color: lightgray;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    color: red;
+}

@@ -1,5 +1,5 @@
 table{
-    margin-top: 150px;
+    margin-top: 200px;
     position: fixed;
 
 }
@@ -25,4 +25,14 @@ a{
 }
 a:hover{
     color: red;
+}
+select,#assetname{
+    float:right;
+    width: 20%;
+    margin-right: 20px;
+    border-color: black;
+    margin-top: 50px;
+}
+#assetname{
+    border-width: 1px;
 }

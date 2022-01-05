@@ -1,7 +1,34 @@
-table{
-    margin-top: 80px;
-    position: fixed;
+/* #left{
 
+    width: 80%;
+    padding: 50px;
+    
+}
+#right{
+    float: right;
+    margin-bottom: 90px;;
+    margin-right: 50px;
+} */
+
+#man{
+    float: left;
+}
+#add{
+    float: right;
+    margin-right: 20px;
+    margin-top: 30px;
+    padding-right: 10px;
+    
+}
+form{
+    margin-left: 30px;
+}
+
+table{
+    margin-top: 110px;
+    border-collapse: collapse;
+    overflow:scroll;
+    /* position: fixed; */
 }
 button{
     margin-top: 100px;
@@ -13,9 +40,14 @@ button{
 }
 table thead{
     background-color: lightgray;
+
 }
+
 table td,th{
-    text-align: center;
+    text-align: left;
+}
+.table>:not(:first-child) {
+    border-top: 1px solid currentColor;
 }
 table tr:hover{
     background-color: lightgray;
@@ -26,6 +58,8 @@ a{
 a:hover{
     color: red;
 }
+
+
 select,#assetname{
     float:right;
     width: 20%;
@@ -35,4 +69,119 @@ select,#assetname{
 }
 #assetname{
     border-width: 1px;
+    float: left;
+}
+div .res{
+    margin-left: 590px;
+}
+@media all and (max-width:480px) {
+    #add { width: 40%; margin-bottom: 20px; display:block; }
+ }   
+ @media all and (max-width:480px) {
+    table{ width: 100%; margin-right: auto; display:block; }
+ }   
+ @media all and (max-width:480px) {
+    #man{ width: 95%; margin-left: auto; display:block; }
+ }   
+ @media all and (max-width:480px) {
+    #assetname{ width: 95%; margin-top: 20px; display:block; }
+ }  
+
+ 
+ .pagination {
+    display: flex;
+    justify-content: center;
+
+}
+
+/* .footer-pg{
+    margin-top: 5%;
+}
+
+.rows-per-page{
+    width: 30%;
+    margin: auto;
+    padding-le
+
+}
+#RowsPerPage{
+    width: 70px;
+    margin-top: 2px;
+}
+@media only screen and (max-width: 768px) {
+    .rows-per-page{
+        width: 20%;
+        margin: auto;
+    }
+
+    .row-counter{
+    width: 120px;
+    }
+    
+    .pagination{
+        margin-left: 26% !important;
+    }
+
+    nav{
+        margin-top: 5%;
+        margin-bottom: 5%;
+
+    }
+}
+.rec{
+    margin-top: 2px;
+} */
+/* @media only screen and (max-width: 768px) {
+    .rows-per-page{
+        width: 20%;
+        margin: auto;
+    }
+
+    .row-counter{
+    width: 120px;
+    }
+    
+    .pagination{
+        margin-left: 26% !important;
+    }
+
+    nav{
+        margin-top: 5%;
+        margin-bottom: 5%;
+
+    }
+}
+
+.rows-per-page{
+    width: 30%;
+    margin: auto;
+}
+
+.row-counter{
+    width: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    
+}
+.pagination{
+    width: 30%;
+    margin: auto;
+} */
+.pagination-item {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.pagination-item > * {
+    margin: 5px;
+}
+.records{
+    width: 50%;
+}
+.row {
+    padding:0px 20px 0px 20px;
 }

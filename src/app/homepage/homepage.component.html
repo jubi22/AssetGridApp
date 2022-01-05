@@ -1,22 +1,31 @@
-<!-- <button type="button" class="btn btn-primary">Add Asset</button>&nbsp;
-<button type="button" class="btn btn-primary">Export</button> -->
+
+<!-- <form id="right">
+    <button class="btn btn-outline-secondary">Export</button>
+    <button class="btn btn-outline-secondary">Add New Asset</button>
+
+</form> -->
 <form>
-    <select class="form-select">
-        <option value="#">All Manufacturers</option>
+    <select class="form-select" id="man">
+        <option value="0">All Manufacturers</option>
+        <option *ngFor="let man of manufacturerList" [ngValue]="man.id">
+            {{man.name}}
+        </option>
     </select>
-    <select class="form-select">
-        <option value="#">All Models</option>
+    <select class="form-select" id="man">
+        <option value="0">All Models</option>
+        <option *ngFor="let models of modelList" [ngValue]="models.id">
+            {{models.name}}
+        </option>
     </select>&nbsp;
     <label for="assetname"></label>
-    <input type="text" id="assetname" placeholder="Enter Asset Name" name="#" class="form-control">
+    <input type="text" id="assetname"  placeholder= "Search Asset"  name="Name" [(ngModel)]="Name"
+    (ngModelChange)="Search()"  class="form-control" autocomplete="off"> 
+     
 </form>
-<form>
-    <button class="btn btn-danger">Export</button>
-    <button class="btn btn-danger">Add New Asset</button>
-</form>
-
-    <div class="row">
-        <table class="table table-responsive-sm">
+<button (click)="exportToSheet()" class="btn btn-outline-secondary" id="add">Export</button>
+<button (click)="createAsset()" class="btn btn-outline-secondary" id="add">Add</button>
+    <div class="container-fluid" #export>
+        <table class="table table-responsive-sm ">
         <thead>
             <tr>
                 <th>Asset Name</th>
@@ -28,19 +37,69 @@
                 <th colspan="2">Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let k of assetList">
             <tr>
-                <td>Keyboard</td>
-                <td>234dfc</td>
-                <td>Logitech</td>
-                <td>wireless keyboard asdasdsaasdasdasdas</td>
-                <td>3242</td>
-                <td>White</td>
-                <td><a href="#"><i class="fa fa-edit" aria-hidden="true"><div>Edit</div></i></a></td>
-                <td><a href="#"><i class="fa fa-trash" aria-hidden="true"><div>Delete</div></i></a></td>
+               
+                <td>{{k.assets.name}}</td>
+                <td>{{k.assets.model.name}}</td>
+                <td>{{k.assets.manufacturer.name}}</td>
+                <td>{{k.assets.description}}</td>
+                <td>{{k.assets.price}}</td>
+                <td>{{k.assets.color?.name}}</td>
+                <td><a routerLink="" (click)="EditAsset(k.assets.id)"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                <td><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             </tr>
+            
         </tbody>
         </table>
-    </div>
-    
-    
+
+            <!-- <pagination-controls (pageChange)="pageno =$event" class="d-flex justify-content-end" >  
+                     
+            </pagination-controls> -->
+         <!-- <mat-paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator> -->
+
+
+     </div>
+
+     <div class="pt-2 footer-pg">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-4 col-6 pagination-item">
+                    <label>Rows per page:</label>
+                    <select class="records form-select" aria-label="Default select example">
+                        <option  selected>9</option>
+                        <option value="2">18</option>
+                        <option value="3">27</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4 col-6 pagination-item">
+                    <div class="page">
+                      <span>Showing 1-3 of 9</span>
+                      </div>
+                  </div>
+                 <div class="col-sm-4 col-12 pagination pagination-item">
+                    <nav>
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a href="" class="page-link rounded-circle m-1"><i class="fa fa-chevron-left text-primary"></i></a>
+                            </li>
+                            <li class="page-item">
+                                <a href="" class="page-link rounded-circle m-1 bg-primary text-white">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="" class="page-link rounded-circle m-1 bg-primary text-white">2</a>
+                            </li>
+                            <li class="page-ite">
+                                <a href="" class="page-link rounded-circle m-1 bg-primary text-white">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="" class="page-link rounded-circle m-1"><i class="fa fa-chevron-right text-primary"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                 </div>
+            
+             </div>
+         </div>
+     </div>

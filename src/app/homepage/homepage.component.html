@@ -12,14 +12,14 @@
         </option>
     </select>
     <select class="form-select" id="man">
-        <option value="0">All Models</option>
-        <option *ngFor="let models of modelList" [ngValue]="models.id">
+        <option value="">All Models</option>
+        <option *ngFor="let models of modelList " [ngValue]="models.id">
             {{models.name}}
         </option>
     </select>&nbsp;
     <label for="assetname"></label>
-    <input type="text" id="assetname"  placeholder= "Search Asset"  name="Name" [(ngModel)]="Name"
-    (ngModelChange)="Search()"  class="form-control" autocomplete="off"> 
+    <input type="text" id="assetname"  placeholder= "Search Asset"  name="assets" [(ngModel)]="Search"
+      class="form-control" autocomplete="off"> 
      
 </form>
 <button (click)="exportToSheet()" class="btn btn-outline-secondary" id="add">Export</button>
@@ -37,7 +37,7 @@
                 <th colspan="2">Actions</th>
             </tr>
         </thead>
-        <tbody *ngFor="let k of assetList">
+        <tbody *ngFor="let k of assetList | searchfilter:Search ">
             <tr>
                
                 <td>{{k.assets.name}}</td>
@@ -67,15 +67,18 @@
 
                 <div class="col-sm-4 col-6 pagination-item">
                     <label>Rows per page:</label>
-                    <select class="records form-select" aria-label="Default select example">
-                        <option  selected>9</option>
-                        <option value="2">18</option>
-                        <option value="3">27</option>
+                    <select   [(ngModel)]="rowsPerPage"(change)="rowSelect()" class="form-select records" style="width: 20%;">
+                        <option selected value="3">3</option>
+                        <option value="6">6</option>
+                        <option value="9">9</option>
                     </select>
                   </div>
                   <div class="col-sm-4 col-6 pagination-item">
                     <div class="page">
-                      <span>Showing 1-3 of 9</span>
+                      <span>{{((currentPageNumber-1) * rowsPerPage) + 1}}<span> - </span><span>
+                        {{currentPageNumber * rowsPerPage > totalRecords? totalRecords : currentPageNumber *rowsPerPage }}</span>
+                        <span> of </span><span>{{totalRecords}}</span>
+                      </span>
                       </div>
                   </div>
                  <div class="col-sm-4 col-12 pagination pagination-item">

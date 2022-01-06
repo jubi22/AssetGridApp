@@ -2,8 +2,8 @@ import { Guid } from "guid-typescript";
 
 
 export class Export{
-    
-    public name:string;
+
+    public Name:string;
     public modelId:string;
     public manufacturerId:string;
     public colorId:string;
@@ -13,17 +13,17 @@ export class Export{
     public purchaseDate:Date;
     public id:Guid;
 
-    constructor(id:Guid,aname:string, model:string, created:Date, manu:string, color:string, price:number, date:Date,desc:string,check:boolean){
-        this.name=aname;
+    constructor(id:Guid,name:string, modelId:string, purchaseDate:Date, manufacturerId:string, colorId:string, price:number,description:string,isActive:boolean){
+        this.Name=name;
     
         this.id=id;
-        this.modelId=model;
-        this.manufacturerId=manu;
+        this.modelId=modelId;
+        this.manufacturerId=manufacturerId;
         this.price=price;
-        this.purchaseDate=date;
-        this.colorId=color;
-        this.description=desc;
-        this.isActive=check;
+        this.purchaseDate=purchaseDate;
+        this.colorId=colorId;
+        this.description=description;
+        this.isActive=isActive;
      
     }
 

@@ -1,8 +1,8 @@
 export class ModelList{
-    public Id: string;
-    public Name:string;
+    public id: string;
+    public name:string;
     constructor(id:string, name:string){
-        this.Id=id;
-        this.Name=name;
+        this.id=id;
+        this.name=name;
     }
 }

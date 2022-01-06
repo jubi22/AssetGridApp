@@ -1,8 +1,8 @@
 export class Colors{
-    Id:number;
-    Name:string;
+    id:number;
+    name:string;
     constructor(id:number, name:string){
-        this.Id=id;
-        this.Name=name;
+        this.id=id;
+        this.name=name;
     }
 }

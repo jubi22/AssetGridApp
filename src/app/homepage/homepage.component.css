@@ -185,3 +185,8 @@ div .res{
 .row {
     padding:0px 20px 0px 20px;
 }
+
+@media all and (max-width:480px) {
+    .records{ width: 50%;  display:block; }
+    } 
+    

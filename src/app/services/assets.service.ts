@@ -14,8 +14,9 @@ export class AssetsService {
    }
 
   GetAssetsList(){
-    return this.http.get(environment.apiUrl+'/getassets', { responseType: 'json' });
+    return this.http.get(environment.apiUrl+'/getassets');
   }
+
   GetModelsList(){
     return this.http.get(environment.apiUrl+'/getmodels');
   }
@@ -40,5 +41,12 @@ export class AssetsService {
   
   UpdateAsset(asset:Assets){
     return this.http.put(environment.apiUrl+'/edit-asset',asset);
+  }
+
+  GetAssetsPage(rowsPerPage:number,pageNumber:number):Observable<any>{
+    return this.http.get(environment.apiUrl + '/getrows/?recordsPerPage=' + rowsPerPage +'&page=' + pageNumber);
+  }
+  totalrecords():Observable<any>{
+    return this.http.get(environment.apiUrl+'/totalrecords')
   }
 }

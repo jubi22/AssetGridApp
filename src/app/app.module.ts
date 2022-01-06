@@ -12,6 +12,7 @@ import { CreateAssetComponent } from './homepage/create-asset/create-asset.compo
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { EditAssetComponent } from './homepage/edit-asset/edit-asset.component';
+import { SearchfilterPipe } from './filters/searchfilter.pipe';
 
 
 
@@ -21,6 +22,7 @@ import { EditAssetComponent } from './homepage/edit-asset/edit-asset.component';
     HomepageComponent,
     CreateAssetComponent,
     EditAssetComponent,
+    SearchfilterPipe,
 
   ],
   imports: [

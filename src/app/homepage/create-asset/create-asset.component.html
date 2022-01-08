@@ -1,7 +1,12 @@
-<div class="container">
-    <div class="row">
-            <form #edit="ngForm" (submit)="onSubmit(edit)">
-                <div class="col-6">
+<!-- <div class="container">
+    <div class="row g-3"> -->
+            <form #edit="ngForm" (submit)="onSubmit(edit)" class="row g-3">
+                <!-- <button class="close" (click)="onCancel()">X</button> -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="onCancel()"></button>
+
+                </div>
+                <div class="col-md-6">
                    
                     <div class="form-group">
                         <label for="assetname">Name </label>
@@ -10,7 +15,9 @@
                         <span class="help-block" *ngIf="!assetname.valid && assetname.touched">
                             Enter Asset Name!!
                           </span>
-                    </div>&nbsp;
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="mname">Models</label>
                         <select name="ModelId" class="form-select" ngModel required id="mname" #mname="ngModel">
@@ -22,31 +29,30 @@
                         <span class="help-block" *ngIf="!mname.valid && mname.touched">
                             Model name is required!!
                         </span>
-                    </div>&nbsp;
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="assetprice">Price</label>
                         <input type="number" id="assetprice" name="Price" class="form-control" ngModel required
-                        #price="ngModel" placeholder="Price">
+                        #price="ngModel" placeholder="Price" min="0" oninput="this.value = Math.abs(this.value)">
                         <span class="help-block" *ngIf="!price.valid && price.touched">
                             Cost price is required!!
                         </span>
-                    </div>&nbsp;
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="purchase">Purchase Date</label>
                         <input type="date" id="purchase" name="PurchaseDate" class="form-control" ngModel required
-                        #purchase="ngModel" style="width: 50%;">
-                    </div>&nbsp;
+                        #purchase="ngModel" style="width: 56%;">
+                    </div>
                     <span class="help-block" *ngIf="!purchase.valid && purchase.touched">
                         Purchase date is required!!
                     </span>
-                    <div class="form-group">
-                        <label id="active">In Use: </label>&nbsp;
-                        <input type="checkbox" id="active" name="IsActive"  ngModel 
-                        #active="ngModel" >
-                        
-                    </div>
                 </div>
-                <div class="col-6" id="right">
+
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="manu">Manufacturer</label>
                         <select name="ManufacturerId" class="form-select" ngModel id="manu" #manu="ngModel" required>
@@ -58,7 +64,9 @@
                         <span class="help-block" *ngIf="!manu.valid && manu.touched">
                             Manufacturer is required!!
                         </span>
-                    </div>&nbsp;
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="color">Color</label>
                         <select class="form-select" name="ColorId" ngModel id="color">
@@ -67,18 +75,29 @@
                                 {{color.name}}
                             </option>
                         </select>
-                    </div>&nbsp;
+                    </div>
+                </div>
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="des">Description</label>
                         <input type="text" id="des" name="Description" class="form-control" placeholder="Description" ngModel
                         maxlength="250" autocomplete="off">
                     
-                    </div>&nbsp;
-                    <div id="bottom">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <label id="active">In Use: </label>&nbsp;
+                        <input type="checkbox" class="form-check-input" id="active" name="IsActive"  ngModel 
+                        #active="ngModel" >                          
+                    </div>
+                </div>
+
+                    <div class="modal-footer">
                         <button class="btn btn-outline-success" type="submit" [disabled]="!edit.valid">Submit</button>&nbsp;
                         <button class="btn btn-outline-warning" (click)="onCancel()">Cancel</button>
                     </div>
-                </div>
+              
             </form>
-    </div>
-</div>
+    <!-- </div>
+</div> -->

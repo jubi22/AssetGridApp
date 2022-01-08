@@ -2,3 +2,16 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.tester{
+    width: 55%;
+    height: 86%;
+}
+
+@media only screen and (max-width:760px){
+    .tester{
+        min-width:  100%;
+        min-height: 100%;
+
+    }
+}

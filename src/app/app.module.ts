@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { EditAssetComponent } from './homepage/edit-asset/edit-asset.component';
 import { SearchfilterPipe } from './filters/searchfilter.pipe';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -38,7 +39,7 @@ import { SearchfilterPipe } from './filters/searchfilter.pipe';
     
     
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents:[CreateAssetComponent]
 })

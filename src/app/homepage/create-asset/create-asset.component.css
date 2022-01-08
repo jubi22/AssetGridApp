@@ -1,7 +1,7 @@
 .help-block {
   color: red;
 }
-.col-6{
+/* .col-md-6{
   float: left;
   width: 50%;
   padding: 10px;
@@ -12,4 +12,13 @@
 } 
 @media all and (max-width:480px) {
 #right{ width: 100%; margin-left: auto; display:block; margin-top: 50px; height: max-content; }
-} 
+}  */
+/* .close{
+position: absolute;
+width: 1%;
+margin-right: 2px;
+top: 55px;
+} */
+@media all and (max-width:480px) {
+  .modal-footer{ width: 100%; display:inline-block }
+}

@@ -12,7 +12,8 @@ import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { Export } from '../models/export.model';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
-import { test1 } from '../models/test.model';
+import { DatePipe, formatDate } from '@angular/common';
+// import { test1 } from '../models/test.model';
 
 @Component({
   selector: 'app-homepage',
@@ -20,60 +21,95 @@ import { test1 } from '../models/test.model';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  public assetList: test1[];
-  // public exportList:Export[]
+  @ViewChild('cancel') cancel
+  public assetList: Assets[];
+  public exportList:Assets[]
   public modelList:ModelList[];
   public manufacturerList:ManufacturerList[];
   u;
   model:any
   test=[];
   Search:string;
-  rowsPerPage: number = 3
+  rowsPerPage: number = 5
   totalPages:number =0
   currentPageNumber:number =1
   pageNumberArray:any = []
   totalRecords:any = 0
+  temp:any;
+  editId:any
+  display:any
 
 
-  constructor(private assetservice:AssetsService, private dialog:MatDialog) {
+  constructor(private assetservice:AssetsService, private dialog:MatDialog, private datePipe:DatePipe) {
+    // this.currentPageNumber=1
+    // this.rowsPerPage = 5
+    // this.totalRecords= 0
+    this.GettotalRecords()
+    this.currentPageNumber = 1
+    this.getAssetsPage()
     this.assetservice.listen().subscribe((m:any)=>{
+
       // this.getAssetsPage()
-      this.assetservice.GetAssetsList().subscribe(m=> this.assetList= m as test1[] )
-      this.assetservice.totalrecords()
+      this.assetservice.GetAssetsList().subscribe(m=> this.assetList= m as Assets[] )
+      this.assetservice.GetAssetsList().subscribe(res=>this.exportList= res as Assets[] )
+      this.GettotalRecords()
+      this.currentPageNumber = 1
+      this.getAssetsPage()
+      // this.assetservice.totalrecords()
+      
     })
    }
-  @ViewChild(MatPaginator) paginator:MatPaginator
+  // @ViewChild(MatPaginator) paginator:MatPaginator
 
 
   ngOnInit() {
-    this.assetservice.totalrecords()
+    this.GettotalRecords()
     this.currentPageNumber = 1
-    // this.getAssetsPage()
-    this.assetservice.GetAssetsList().subscribe(res=>this.assetList= res as test1[] )
-    // this.assetservice.GetAssetsList().subscribe(res=>this.exportList= res as Export[] )
+    this.getAssetsPage()
+    this.assetservice.GetAssetsList().subscribe(res=>this.assetList= res as Assets[] )
+    this.assetservice.GetAssetsList().subscribe(res=>this.exportList= res as Assets[] )
     this.assetservice.GetModelsList().subscribe(res=>  this.modelList=res as ModelList[])
     this.assetservice.GetManufacturerList().subscribe(res=>this.manufacturerList=res as ManufacturerList[]);
     
   }
+
+  onCancel(){
+    this.cancel.nativeElement.click()
+  }
  
   createAsset(){
-    const dialogconfig=new MatDialogConfig();
-    dialogconfig.disableClose=true;
-    dialogconfig.autoFocus=true;
-    dialogconfig.width="65%"
-    dialogconfig.height="65%"
-
-    this.dialog.open(CreateAssetComponent, dialogconfig);
+    // const dialogconfig=new MatDialogConfig();
+    // dialogconfig.disableClose=false;
+    // dialogconfig.autoFocus=false;
+    // dialogconfig.width="50%"
+    // dialogconfig.height="75%"
+    let config: MatDialogConfig={
+      panelClass:"tester"
+    }
+    
+    
+    this.dialog.open(CreateAssetComponent,config)
   }
-  EditAsset(row){ 
-    this.u=row;
+  EditAsset(editId:any){ 
+    // this.display="block"
+    this.u=editId;
+    console.log(this.u)
     this.assetservice.temp.push(this.u);
-    const dialogconfig=new MatDialogConfig();
-    dialogconfig.disableClose=true;
-    dialogconfig.autoFocus=true;
-    dialogconfig.width="65%"
-    dialogconfig.height="65%"
-    this.dialog.open(EditAssetComponent, dialogconfig);
+    let config: MatDialogConfig={
+      panelClass:"tester"
+    }
+    this.dialog.open(EditAssetComponent,config)
+    // const dialogconfig=new MatDialogConfig();
+    // dialogconfig.disableClose=false;
+    // dialogconfig.autoFocus=false;
+    // // dialogconfig.width="65%"
+    // // dialogconfig.height="65%"
+    // this.dialog.open(EditAssetComponent,{
+    //   width:"50%",
+    //   height:"86%",
+    //   disableClose:true,
+ 
+    // });
   }
 
   exportToSheet() {
@@ -90,32 +126,31 @@ export class HomepageComponent implements OnInit {
       { header: 'Purchase Date', key: 'PurchaseDate', width: 15 },
       { header: 'InUse', key: 'IsActive', width: 10 },
       { header: 'Price', key: 'Price', width: 10 },
-      { header: 'Isdeleted', key: 'IsDeleted', width: 10 },
-      { header: 'Created Date', key: 'CreatedOn', width: 20 },
-      { header: 'Last Updated Date', key: 'LastUpdatedOn', width: 20 },
+      // { header: 'Isdeleted', key: 'IsDeleted', width: 10 },
     ];
-    this.assetList.forEach(e => {
-     console.log(e)
-     if(e.assets.isActive==true){
+    this.exportList.forEach(e => {
+     if(e.isActive==true){
        var inUse="YES"
      }
      else{
        var inUse="NO"
      }
-     if(e.assets.isDeleted==true){
+     if(e.isDeleted==true){
        var isdelete="YES"
      }
      else{
        var isDelete="NO"
      }
-      worksheet.addRow({ Name:e.assets.name,ModelId:e.assets.model.name,
-      ManufacturerId:e.assets.manufacturer.name, ColorId:e.assets.color.name, Description:e.assets.description,
-      IsActive:inUse, Price:e.assets.price, PurchaseDate:e.assets.purchaseDate,
-      IsDeleted:isDelete, CreatedOn:e.assets.createdOn, LastUpdatedOn:e.assets.lastupdatedOn},"n");
+  
+     this.datePipe.transform(e.purchaseDate,'yyyy-MM-dd')
+     console.log(e.purchaseDate)
+      worksheet.addRow({ Name:e.name,ModelId:e.model.name,
+      ManufacturerId:e.manufacturer.name, ColorId:e.color.name, Description:e.description,
+      IsActive:inUse, Price:e.price, PurchaseDate:e.purchaseDate,},"n");
     });
    
-    workbook.xlsx.writeBuffer().then((assetList) => {
-      let blob = new Blob([assetList], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    workbook.xlsx.writeBuffer().then((exportList) => {
+      let blob = new Blob([exportList], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       fs.saveAs(blob, 'AssetGrid.xlsx');
     })
    
@@ -130,6 +165,7 @@ export class HomepageComponent implements OnInit {
   GettotalRecords(){
     this.assetservice.totalrecords().subscribe({
       next:(data)=>{
+        
         this.totalRecords=parseFloat(data)
         this.totalPages=Math.ceil(this.totalRecords/this.rowsPerPage)
         this.pageNumberArray= new Array(this.totalPages)
@@ -140,7 +176,31 @@ export class HomepageComponent implements OnInit {
 
   getAssetsPage() {
     this.assetservice.GetAssetsPage(this.rowsPerPage,this.currentPageNumber).subscribe(
-     )
+      (data:Assets[])=>{this.assetList=data}
+    )
+  }
+
+  paginationLeftArrowClick() {
+    if(this.currentPageNumber>1) {
+    this.currentPageNumber-=1
+    // console.log(this.currentPageNumber)
+    this.getAssetsPage()
+    }
+  }
+
+  paginationRightArrowClick() {
+    if(this.currentPageNumber<this.totalPages) {
+      this.currentPageNumber +=1
+      // console.log(this.currentPageNumber)
+      this.getAssetsPage()
+    }
+  }
+
+  onPageNumberChange(pno:number) {
+    this.currentPageNumber = pno
+    console.log(this.currentPageNumber)
+    this.GettotalRecords()
+    this.getAssetsPage()
   }
 
 }

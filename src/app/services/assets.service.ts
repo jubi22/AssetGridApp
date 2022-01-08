@@ -14,7 +14,7 @@ export class AssetsService {
    }
 
   GetAssetsList(){
-    return this.http.get(environment.apiUrl+'/getassets');
+    return this.http.get(environment.apiUrl+'/getasset');
   }
 
   GetModelsList(){

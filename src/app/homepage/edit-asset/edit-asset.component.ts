@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Assets } from 'src/app/models/assets.model';
 import { AssetsService } from 'src/app/services/assets.service';
 import { Colors } from 'src/app/models/colors.model';
@@ -17,6 +17,7 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./edit-asset.component.css']
 })
 export class EditAssetComponent implements OnInit {
+  @ViewChild('closebutton') closebutton;
   public assetList:Assets[];
   public modelList:ModelList[];
   public manufacturerList:ManufacturerList[];
@@ -25,16 +26,23 @@ export class EditAssetComponent implements OnInit {
   id;
   temp;
   c;
+  assetIdget;
+  assetId;
   format:'dd-MM-yyyy'
 
-  constructor(public assetservice:AssetsService, public dialogref:MatDialogRef<EditAssetComponent>,
-    public activated: ActivatedRoute, public router: Router, public mess:ToastrService) { 
+  constructor(public assetservice:AssetsService,
+    public activated: ActivatedRoute, public router: Router, public mess:ToastrService,
+    public dialogref:MatDialogRef<EditAssetComponent>) { 
         
 
     }
 
   ngOnInit(): void {
-
+    // this.assetIdget= this.activated.paramMap.subscribe(
+    //   t=>{
+    //     this.assetId= t.get('id')
+    //   }
+    // )
    
     // var c= this.temp.toString().toUpperCase();
     // this.temp=(this.temp).toUppercase();
@@ -50,6 +58,7 @@ export class EditAssetComponent implements OnInit {
   
   }
   onSubmit(form:NgForm){
+    // form.value.Id=this.assetId  //new
     if(form.value.ColorId==""){
       form.value.ColorId=null
     }
@@ -58,6 +67,7 @@ export class EditAssetComponent implements OnInit {
         if(res!=null){
         this.mess.success("Updated successfully")
         this.dialogref.close();
+        // this.closebutton.nativeElement.click()
         this.assetservice.filter('edit');
         this.temp.pop();
         }
@@ -72,6 +82,7 @@ export class EditAssetComponent implements OnInit {
     this.temp.pop();
 
     this.dialogref.close();
+    // this.closebutton.nativeElement.click();
     
   }
 

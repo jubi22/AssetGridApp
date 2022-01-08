@@ -4,7 +4,8 @@ import { EditAssetComponent } from './homepage/edit-asset/edit-asset.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 const routes: Routes = [
-  {path:'',component:HomepageComponent}
+  {path:'',component:HomepageComponent},
+  {path:'edit/:id', component:EditAssetComponent}
 ];
 
 @NgModule({

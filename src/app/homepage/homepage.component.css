@@ -190,3 +190,12 @@ div .res{
     .records{ width: 50%;  display:block; }
     } 
     
+#show{
+    font-style: italic;
+}
+/* @media all and (max-width:480px) {
+    .popup{ width: 60%; height: 100%;   }
+    }  */
+
+
+ 

@@ -1,16 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { test1 } from '../models/test.model';
+import { Assets } from '../models/assets.model';
+// import { test1 } from '../models/test.model';
 
 @Pipe({
   name: 'searchfilter'
 })
 export class SearchfilterPipe implements PipeTransform {
 
-  transform(assets:test1[], Search:string): any {
+  transform(assets:Assets[], Search:string): any {
     if(!assets || !Search){
       return assets;
     }
-    return assets.filter(s=>s.assets.name.toLocaleLowerCase().includes(Search.toLocaleLowerCase()))
+    return assets.filter(s=>s.name.toLocaleLowerCase().includes(Search.toLocaleLowerCase()))
   }
 
 }

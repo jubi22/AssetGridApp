@@ -1,57 +1,59 @@
-<div class="container" *ngFor="let x of assetList" >
-    <div class="row" *ngIf="this.temp==x.assets.id">
+<div *ngFor="let x of assetList" >
+    <div *ngIf="this.temp==x.id">
      
-            <form #edit="ngForm" (submit)="onSubmit(edit)">
-                <div class="col-6" >              
+            <form #edit="ngForm" (submit)="onSubmit(edit)" class="row g-3">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="onCancel()"></button>
+
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="assetname">Name </label>
                         <input type="text" id="assetname" name="Name" class="form-control" ngModel required
-                        #assetname="ngModel" placeholder="Asset Name" [(ngModel)]=x.assets.name autocomplete="off">
+                        #assetname="ngModel" placeholder="Asset Name" [(ngModel)]=x.name autocomplete="off">
                         <span class="help-block" *ngIf="!assetname.valid && assetname.touched">
                             Enter Asset Name!!
                           </span>
-                    </div>&nbsp;
-                    
-                   <input type="hidden" name="Id" ngModel="{{x.assets.id}}">
-                    <div class="form-group">
-                        <label for="mname">Models</label>
-                        <select name="ModelId" class="form-select" [(ngModel)]="x.assets.model.id" required id="mname" #mname="ngModel">
-                           
-                            <option *ngFor="let models of modelList" [ngValue]="models.id">
-                                {{models.name}}
-                            </option>
-                        </select>
-                        <span class="help-block" *ngIf="!mname.valid && mname.touched">
-                            Model name is required!!
-                        </span>
-                    </div>&nbsp;
+                    </div>                   
+                </div>
+                   <input type="hidden" name="Id" ngModel="{{x.id}}">
+                <div class="col-md-6">
+                    <label for="mname">Models</label>
+                    <select name="ModelId" class="form-select" [(ngModel)]="x.model.id" required id="mname" #mname="ngModel">
+                       
+                        <option *ngFor="let models of modelList" [ngValue]="models.id">
+                            {{models.name}}
+                        </option>
+                    </select>
+                    <span class="help-block" *ngIf="!mname.valid && mname.touched">
+                        Model name is required!!
+                    </span>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="assetprice">Price</label>
                         <input type="number" id="assetprice" name="Price" class="form-control" ngModel required
-                        #price="ngModel" placeholder="Price" [(ngModel)]="x.assets.price">
+                        #price="ngModel" placeholder="Price" [(ngModel)]="x.price" min="0" oninput="this.value = Math.abs(this.value)">
                         <span class="help-block" *ngIf="!price.valid && price.touched">
                             Cost price is required!!
                         </span>
-                    </div>&nbsp;
-                    <div class="form-group">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" id="purchase">
                         <label for="purchase">Purchase Date</label>
-                        <input type="date" id="purchase" name="PurchaseDate" class="form-control" [ngModel]="x.assets.purchaseDate | date:'yyyy-MM-dd'" (ngModelChange)="x.assets.purchaseDate= $event" required
-                        #purchase="ngModel" style="width: 50%;">
-                    </div>&nbsp;
+                        <input type="date" id="purchase" name="PurchaseDate" class="form-control" [ngModel]="x.purchaseDate | date:'yyyy-MM-dd'" (ngModelChange)="x.purchaseDate= $event" required
+                        #purchase="ngModel" style="width: 56%;">
+                    </div>
                     <span class="help-block" *ngIf="!purchase.valid && purchase.touched">
                         Purchase date is required!!
                     </span>
-                    <div class="form-group">
-                        <label id="active">In Use: </label>&nbsp;
-                        <input type="checkbox" id="active" name="IsActive"  ngModel 
-                        #active="ngModel" [(ngModel)]="x.assets.isActive" >
-                        
-                    </div>
                 </div>
-                <div class="col-6" id="right">
+              
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="manu">Manufacturer</label>
-                        <select name="ManufacturerId" class="form-select" [(ngModel)]="x.assets.manufacturer.id" id="manu" #manu="ngModel" required>
+                        <select name="ManufacturerId" class="form-select" [(ngModel)]="x.manufacturer.id" id="manu" #manu="ngModel" required>
                             
                             <option *ngFor="let man of manufacturerList" [ngValue]="man.id">
                                 {{man.name}}
@@ -60,27 +62,39 @@
                         <span class="help-block" *ngIf="!manu.valid && manu.touched">
                             Manufacturer is required!!
                         </span>
-                    </div>&nbsp;
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="color">Color</label>
-                        <select class="form-select" name="ColorId" ngModel="{{x.assets.color?.id}}" id="color" >
+                        <select class="form-select" name="ColorId" ngModel="{{x.color?.id}}" id="color" >
                             <option value="">Select Color</option>
                             <option *ngFor="let color of colorList" [ngValue]="color.id">
                                 {{color.name}}
                             </option>
                         </select>
-                    </div>&nbsp;
+                    </div>
+                </div>
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="des">Description</label>
                         <input type="text" id="des" name="Description" class="form-control" placeholder="Description" ngModel
-                        maxlength="250" autocomplete="off" [(ngModel)]="x.assets.description">
+                        maxlength="250" autocomplete="off" [(ngModel)]="x.description">
                     
-                    </div>&nbsp;
-                    <div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <label id="active">In Use: </label>&nbsp;
+                        <input type="checkbox" class="form-check-input"  id="active" name="IsActive"  ngModel 
+                        #active="ngModel" [(ngModel)]="x.isActive" >
+                        
+                    </div>
+                </div>
+                    <div class="modal-footer">
                         <button class="btn btn-outline-success" type="submit" [disabled]="!edit.valid">Submit</button>&nbsp;
                         <button class="btn btn-outline-warning" (click)="onCancel()">Cancel</button>
                     </div>
-                </div>
             </form>
     </div>
 </div>

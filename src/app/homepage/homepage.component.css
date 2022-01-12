@@ -77,6 +77,8 @@ div .res{
 @media all and (max-width:480px) {
     #add { width: 40%; margin-bottom: 20px; display:block; }
  }   
+
+
  @media all and (max-width:480px) {
     table{ width: 100%; margin-right: auto; display:block; }
  }   

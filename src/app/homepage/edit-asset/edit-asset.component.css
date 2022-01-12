@@ -10,12 +10,12 @@
   /* @media all and (max-width:480px) {
     .col-6{ width: 100%; margin-left: auto; display:block; }
  }  */
- @media all and (max-width:480px) {
+ /* @media all and (max-width:480px) {
   #right{ width: 100%; margin-left: auto; display:block; margin-top: 50px; height: max-content; }
-} 
+}  */
 @media all and (max-width:480px) {
   .modal-footer{ width: 100%; display:inline-block }
 } 
-@media all and (max-width:480px) {
+/* @media all and (max-width:480px) {
   #purchase{ width: 100%; display:inline-block }
-} 
+}  */
